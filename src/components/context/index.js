@@ -9,6 +9,7 @@ export default function MainProvider({ children }) {
     const [selectedDays, setSelectedDays] = useState([])
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const [todayHabits, setTodayHabits] = useState([])
     const [userInfo, setUserInfo] = useState({id: 0, name: "", image: "", email: "", token: ""})
     const [weekDays, setWeekDays] = useState([
         { name: "D", selected: false, id:7 },
@@ -38,7 +39,9 @@ export default function MainProvider({ children }) {
                 habits,
                 setHabits,
                 percentage,
-                setPercentage
+                setPercentage,
+                todayHabits,
+                setTodayHabits
             }}
         >
             {children}
@@ -100,4 +103,11 @@ export function usePercentage() {
 
     const {percentage, setPercentage} = context;
     return {percentage, setPercentage}
+}
+
+export function useToday() {
+    const context = useContext(MainContext);
+
+    const {todayHabits, setTodayHabits} = context;
+    return {todayHabits, setTodayHabits}
 }

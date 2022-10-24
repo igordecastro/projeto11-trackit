@@ -145,4 +145,9 @@ font-size: 19.976px;
 line-height: 25px;
 cursor: pointer;
 `
+export const Global = createGlobalStyle`
+body{
+   background-color: #E5E5E5;
+}
+`
 export default GlobalStyle

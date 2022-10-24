@@ -1,7 +1,7 @@
 import axios from "axios"
 import styled from "styled-components"
 import { Day } from "../assets/GlobalStyle"
-import { useHabit, useHabits, useInfo, useDays, useSelectedDays} from "./context/index"
+import { useHabit, useHabits, useInfo, useDays, useSelectedDays } from "./context/index"
 
 export default function NewHabit({ setAddHabit }) {
     const { weekDays } = useDays()
@@ -28,24 +28,24 @@ export default function NewHabit({ setAddHabit }) {
 
     function addHabit() {
         let daysID = []
-        const URL ="https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+        const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
         const config = {
             headers: {
                 "Authorization": `Bearer ${userInfo.token}`
             }
         }
-        for(let i = 0; i < selectedDays.length; i++) {
-                daysID.push(selectedDays[i].id)
+        for (let i = 0; i < selectedDays.length; i++) {
+            daysID.push(selectedDays[i].id)
         }
-        console.log(daysID)
         const body = {
             name: habit,
             days: daysID
         }
         axios.post(URL, body, config)
             .then(res => setHabits([...habits, res.data]))
+            
+        setAddHabit(false)
     }
-    console.log(habits)
 
     return (
         <NewHabitContainer>

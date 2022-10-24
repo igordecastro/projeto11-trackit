@@ -1,17 +1,28 @@
 import styled from "styled-components"
 import { Day } from "../assets/GlobalStyle"
-import { useDays, useHabits } from "./context/index"
+import { useDays, useHabits, useInfo } from "./context/index"
 import bin from "../assets/img/Vector.svg"
+import axios from "axios"
 
 export default function Habit({ id, name, days }) {
-    console.log(days)
     const { weekDays } = useDays()
     const { habits, setHabits } = useHabits()
+    const { userInfo } = useInfo()
 
     function deleteHabit(habitToBeDeleted) {
-        const newHabits = habits.filter((h) => h.id !== habitToBeDeleted)
+        const text = "Gostaria de deletar o hábito?"
+        if (window.confirm(text) === true) {
+            const newHabits = habits.filter((h) => h.id !== habitToBeDeleted)
+            const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitToBeDeleted}`
+            const config = { headers: { "Authorization": `Bearer ${userInfo.token}` } }
+
+            axios.delete(URL, config)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err.response.data.message, config))
+            setHabits(newHabits)
+        }
     }
-    
+
     return (
         <MainContainer>
             <h2>{name}</h2>

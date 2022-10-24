@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import styled, { createGlobalStyle } from "styled-components"
+import styled from "styled-components"
 import NewHabit from "./NewHabit"
 import { useInfo, useHabits } from "./context/index"
-import { Header } from "../assets/GlobalStyle";
+import { Header, Global } from "../assets/GlobalStyle";
 import axios from "axios";
 import FooterContainer from "./FooterContainer";
 import Habit from "./Habit"
@@ -24,7 +23,7 @@ export default function HabitsPage() {
             .then(res => setHabits(res.data))
             .catch(err => {alert(err.response.data.message)})
     }, [])
-    console.log(habits)
+    
 
     return (
         <>
@@ -53,11 +52,6 @@ export default function HabitsPage() {
     )
 }
 
-const Global = createGlobalStyle`
- body{
-    background-color: #E5E5E5;
- }
-`
 const BodyContainer = styled.div`
     div:last-child {
         margin-bottom: 101px;
